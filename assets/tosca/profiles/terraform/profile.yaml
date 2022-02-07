@@ -1,0 +1,21 @@
+tosca_definitions_version: tosca_simple_yaml_1_3
+
+namespace: terraform
+
+metadata:
+
+  puccini.scriptlet.import:terraform.generate: js/generate.js
+
+node_types:
+
+  Resource: {}
+
+  LocalFile:
+    metadata:
+      terraform.resource: local_file
+    derived_from: Resource
+    properties:
+      filename:
+        type: string
+      content:
+        type: string

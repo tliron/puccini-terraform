@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+HERE=$(dirname "$(readlink --canonicalize "$BASH_SOURCE")")
+ROOT=$(readlink --canonicalize "$HERE/../..")
+
+"$ROOT/scripts/build"
+
+cd "$HERE"
+
+puccini-tosca compile modules/hello/hello.yaml --exec terraform.generate --output=modules/hello/main.tf
+
+rm --force --recursive .terraform .terraform.lock.hcl *.tfstate*
+terraform init

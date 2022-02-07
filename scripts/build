@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+
+HERE=$(dirname "$(readlink --canonicalize "$BASH_SOURCE")")
+ROOT=$(readlink --canonicalize "$HERE/..")
+
+ORGANIZATION=puccini
+PROVIDER=tosca
+VERSION=0.0.1
+ARCHITECTURE=linux_amd64
+
+EXECUTABLE=terraform-provider-$PROVIDER
+PLUGIN_DIR=~/.terraform.d/plugins/registry.terraform.io/$ORGANIZATION/$PROVIDER/$VERSION/$ARCHITECTURE
+
+cd "$ROOT/$EXECUTABLE"
+
+go install
+mkdir --parents "$PLUGIN_DIR"
+rsync "$HOME/go/bin/$EXECUTABLE" "$PLUGIN_DIR/$EXECUTABLE"

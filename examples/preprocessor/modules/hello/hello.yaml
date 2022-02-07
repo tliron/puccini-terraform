@@ -1,0 +1,15 @@
+tosca_definitions_version: tosca_simple_yaml_1_3
+
+imports:
+- file: ../../../../assets/tosca/profiles/terraform/profile.yaml
+  namespace_prefix: tf
+
+topology_template:
+
+  node_templates:
+
+    hello:
+      type: tf:LocalFile
+      properties:
+        filename: ./artifacts/hello.txt
+        content: Hello World!
